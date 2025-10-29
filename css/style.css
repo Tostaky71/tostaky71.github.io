@@ -48,11 +48,23 @@ body {
 	height: auto;
 }
 
+.portfolio {
+	position: absolute;
+	top: 75%;
+    font-size: 17px;
+    color: rgb(60, 160, 240);
+    text-decoration: none;
+    font-weight: 400;
+}
+.portfolio:hover {
+	color: rgb(255, 165, 75);
+}
+
 .menu_2 {
 	position: absolute;
 	top: 69%;
     font-size: 17px;
-    color: rgb(75, 126, 255);
+    color: rgb(60, 160, 240);
     text-decoration: none;
     font-weight: 400;
 }
@@ -62,9 +74,9 @@ body {
 
 .menu_3 {
 	position: absolute;
-	top: 75%;
+	top: 81%;
     font-size: 17px;
-    color: rgb(75, 126, 255);
+    color: rgb(60, 160, 240);
     text-decoration: none;
     font-weight: 400;
 }
@@ -74,9 +86,9 @@ body {
 
 .menu_4 {
 	position: absolute;
-	top: 81%;
+	top: 87%;
     font-size: 17px;
-    color: rgb(75, 126, 255);
+    color: rgb(60, 160, 240);
     text-decoration: none;
     font-weight: 400;
 }
@@ -87,7 +99,7 @@ body {
 .menu_5 {
 	position: absolute;
 	display: flex;
-	top: 90%;
+	top: 96%;
 	width: 30px;
 	height: 30px;
     background-color: transparent;
@@ -97,8 +109,11 @@ body {
 .menu_5 img {
 	position: absolute;
 	height: 30px;
+    filter: grayscale(100%) brightness(0.9);
 }
-
+.menu_5 img:hover {
+    filter: grayscale(0%);
+}
 
 
 
