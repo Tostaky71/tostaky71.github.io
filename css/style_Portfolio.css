@@ -178,9 +178,10 @@ body {
     /* margin: 340px auto 0; */
     margin: 450px auto 0;
     color: orange;
-    font-size: xx-large;
+    font-size: 24px;
     font-weight: 700;
     background-color: transparent;
+    text-align: center;
 }
 
 
