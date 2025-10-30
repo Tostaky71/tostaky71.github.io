@@ -165,7 +165,7 @@ body {
     position: absolute;
     display: flex;
     top: 0px;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 400;
 }
 
@@ -182,10 +182,10 @@ body {
     flex: 1;
     flex-direction: column;
     gap: 20px;
-    margin: 340px auto 0;
+    margin: 330px auto 0;
     left: 20%;
     height: auto;
-    width: 60%;
+    width: 80%;
     align-items: left;
     background-color: rgba(255, 166, 0, 0.3);
     border-radius: 10px;
@@ -218,7 +218,7 @@ body {
     color: rgb(60, 160, 240);
     left: 10px;
     height: 40px;
-    width: 300px;              /* largeur du champ */
+    width: 97%;              /* largeur du champ */
     border-radius: 8px;        /* coins arrondis */
     border-width: 0;
     outline: none;             /* retire le contour bleu */
@@ -234,7 +234,7 @@ body {
     color: rgb(60, 160, 240);
     left: 10px;
     height: 40px;
-    width: 300px;              /* largeur du champ */
+    width: 97%;              /* largeur du champ */
     border-radius: 8px;        /* coins arrondis */
     border-width: 0;
     outline: none;             /* retire le contour bleu */

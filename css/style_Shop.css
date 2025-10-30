@@ -165,14 +165,14 @@ body {
     position: absolute;
     display: flex;
     top: 0px;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 400;
 }
 .titles {
     position: absolute;
     display: flex;
     top: 80px;
-    width: 430px;
+    width: 400px;
     font-size: 23px;
     background-color: transparent;
     justify-content: space-between; /* espace entre les titres */
