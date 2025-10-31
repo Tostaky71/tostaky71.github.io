@@ -24,7 +24,7 @@ if(bouton && selectFormat){
 
     // Créer l'article depuis les data attributes du bouton
     const article = {
-      id: bouton.dataset.id,
+      id: bouton.dataset.id + "_" + formatChoisi,
       nom: bouton.dataset.nom,
       prix: prixFormat,
       quantite: 1,
