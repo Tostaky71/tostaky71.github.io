@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("checkout-button").addEventListener("click", async () => {
     if (panier.length === 0) return alert("Le panier est vide !");
 
-    const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
+    const res = await fetch("https://stripe-1ohqpxdiv-tostaky71s-projects.vercel.app/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: panier.map(item => ({ id: item.id, quantity: item.quantite })) })
