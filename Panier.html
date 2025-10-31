@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (panier.length === 0) return alert("Le panier est vide !");
 
     try {
-      const res = await fetch("https://stripe-api-git-main-tostaky71s-projects.vercel.app/api/create-checkout-session", {
+      const res = await fetch("https://stripe-1ohqpxdiv-tostaky71s-projects.vercel.app/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
