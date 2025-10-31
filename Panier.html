@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Panier</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    th { background: #007bff; color: white; }
+    button { padding: 5px 10px; margin: 5px; border-radius: 5px; cursor: pointer; }
+    .remove-btn { background: #dc3545; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+  <h1>Votre Panier</h1>
+  <table id="panier-table">
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Prix</th>
+        <th>Quantité</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Le contenu du panier sera injecté ici -->
+    </tbody>
+  </table>
+
+  <p id="panier-total" style="font-weight:bold; margin-top: 20px;"></p>
+  <button id="checkout-button">Payer maintenant</button>
+
+  <script src="js/cart.js"></script>
+  <script>
+    const tbody = document.querySelector("#panier-table tbody");
+    let panier = JSON.parse(localStorage.getItem("panier")) || [];
+
+    function afficherPanier() {
+      tbody.innerHTML = "";
+      let total = 0;
+
+      panier.forEach((item, index) => {
+        const itemTotal = item.prix * item.quantite;
+        total += itemTotal;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.nom}</td>
+          <td>${item.prix.toFixed(2)} €</td>
+          <td>${item.quantite}</td>
+          <td>${itemTotal.toFixed(2)} €</td>
+          <td><button class="remove-btn" data-index="${index}">Supprimer</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("panier-total").textContent = `Total : ${total.toFixed(2)} €`;
+
+      // Ajouter la fonction supprimer
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          panier.splice(btn.dataset.index, 1);
+          localStorage.setItem("panier", JSON.stringify(panier));
+          afficherPanier();
+        });
+      });
+    }
+
+    afficherPanier();
+
+    // Stripe Checkout
+    document.getElementById("checkout-button").addEventListener("click", async () => {
+      if(panier.length === 0) return alert("Le panier est vide !");
+      const res = await fetch("https://ton-projet.vercel.app/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: panier.map(item => ({ id: item.id, quantity: item.quantite })) })
+      });
+      const data = await res.json();
+      window.location.href = data.url;
+    });
+  </script>
+
+</body>
+</html>
