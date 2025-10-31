@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+	background-color: whitesmoke;
+    padding-bottom: 0px;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+.name {
+	position: absolute;
+    display: flex;
+    top: 0%;
+    right: 50%;
+    width: 50%;
+    height: 100px;
+    color: black;
+    background-color: transparent;
+    font-weight: 400;
+    align-items: left;
+    z-index: 100;
+}
+.name_1 {
+    position: absolute;
+	top: 18%;
+    right: 10px;
+    font-size: 17px;
+    color: black;
+    text-decoration: none;
+    font-weight: 400;
+}
+.name_2 img {
+	position: absolute;
+	top: 50%;
+	width: 150px;
+    right: 10px;
+	height: auto;
+}
+
+
+
+.menu {
+    position: absolute;
+	display: flex;
+    top: 50px;
+    right: 0%;
+    width: 50%;
+    height: 150px;
+    background-color: transparent;
+    align-items: center;
+    z-index: 100;
+}
+
+.menu_0 {
+    position: absolute;
+	top: 5%;
+    left: 30px;
+    font-size: 17px;
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-weight: 400;
+}
+.menu_0:hover {
+	color: rgb(255, 165, 75);
+}
+
+.menu_1 {
+    position: absolute;
+	top: 20%;
+    left: 30px;
+    font-size: 17px;
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-weight: 400;
+}
+.menu_1:hover {
+	color: rgb(255, 165, 75);
+}
+
+.menu_2 {
+    position: absolute;
+	top: 35%;
+    left: 30px;
+    font-size: 17px;
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-weight: 400;
+}
+.menu_2:hover {
+	color: rgb(255, 165, 75);
+}
+
+.menu_3 {
+    position: absolute;
+	top: 50%;
+    left: 30px;
+    font-size: 17px;
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-weight: 400;
+}
+.menu_3:hover {
+	color: rgb(255, 165, 75);
+}
+
+.menu_4 {
+	position: absolute;
+	display: flex;
+	top: 70%;
+    left: 28px;
+	width: 30px;
+	height: 30px;
+    background-color: transparent;
+	justify-content: space-evenly;
+    align-items: center;
+}
+.menu_4:hover {
+	color: rgb(255, 165, 75);
+}
+.menu_4 img {
+	position: absolute;
+	height: 30px;
+    filter: grayscale(100%) brightness(0.9);
+}
+.menu_4 img:hover {
+    filter: grayscale(0%);
+}
+
+.trait {
+    position: absolute;
+    display: flex;
+    top: 230px;
+    height: 1px;
+    width: 70%;
+    background-color: orange;
+}
+
+.title {
+    position: absolute;
+    display: flex;
+    top: 250px;
+    width: 100%;
+    height: 100px;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+}
+.title_1 {
+    position: absolute;
+    display: flex;
+    top: 0px;
+    font-size: 34px;
+    font-weight: 400;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contenu {
+    /*position: absolute;*/
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    /* margin: 340px auto 0; */
+    margin: 310px auto 0;
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    align-items: center;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Open sans", sans-serif;
+}
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+th {
+    background: rgb(122, 193, 251);
+    color: white;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+}
+
+.button {
+    position: relative;
+    display: flex;
+    left: 0px;
+    height: 50px;
+    width: 120px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;        /* coins arrondis */
+    border: none;
+    box-shadow: none;
+    background-color: rgba(255, 166, 0, 0.411);
+    font-size: 16px;
+    font-weight: 200;
+    align-self: center;
+}
+.button:hover {
+    background-color: rgb(157, 207, 248);
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+.footer {
+    background-color: transparent;
+    color: rgb(125, 125, 125);
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}

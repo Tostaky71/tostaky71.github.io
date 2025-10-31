@@ -1,8 +1,24 @@
 // Récupère le bouton "Ajouter au panier"
 const bouton = document.getElementById("add-to-cart");
+const selectFormat = document.getElementById("format-select");
 
-if(bouton){
+if(bouton && selectFormat){
   bouton.addEventListener("click", () => {
+    const formatChoisi = selectFormat.value; // récupère la valeur sélectionnée
+
+    // Vérification du format
+    if (!selectFormat.value) {
+        alert("Veuillez sélectionner un format avant d'ajouter au panier !");
+        return;
+    }
+    const optionChoisie = selectFormat.options[selectFormat.selectedIndex]; // <-- récupère l'option    
+    const prixFormat = parseFloat(optionChoisie.dataset.prix); // prix dépend du format
+
+    if (isNaN(prixFormat)) {
+      alert("Erreur de prix ! Vérifiez les data-prix de vos options.");
+      return;
+    }
+    
     // Récupérer le panier existant
     let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
@@ -10,12 +26,13 @@ if(bouton){
     const article = {
       id: bouton.dataset.id,
       nom: bouton.dataset.nom,
-      prix: parseFloat(bouton.dataset.prix),
-      quantite: 1
+      prix: prixFormat,
+      quantite: 1,
+      format: formatChoisi  // On stocke aussi le format
     };
 
     // Vérifier si l'article est déjà dans le panier
-    const index = panier.findIndex(item => item.id === article.id);
+    const index = panier.findIndex(item => item.id === article.id && item.format === article.format);
     if(index > -1){
       panier[index].quantite += 1;
     } else {
@@ -27,5 +44,6 @@ if(bouton){
 
     // Message de confirmation
     alert("Article ajouté au panier !");
+    console.log("Panier actuel :", panier); // Pour debug
   });
 }

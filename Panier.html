@@ -1,89 +1,169 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon Panier</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
-    th { background: rgb(122, 193, 251); color: white; }
-    button { padding: 5px 10px; margin: 5px; border-radius: 5px; cursor: pointer; }
-    .remove-btn { background: #dc3545; color: white; border: none; }
-  </style>
+  <head>
+    <title>Lisa Tostaky</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style_Panier.css">
+  </head>
 </head>
 <body>
 
-  <h1>Votre Panier</h1>
+
+  <header class="name">
+  <a href="index.html" class="name_1">
+    L i s a &nbsp T o s t a k y
+  </a>
+  
+  <a href="index.html" class="name_2">
+    <img src="img/circleimg2.png">
+  </a>
+  </header>
+
+
+
+
+  <header class="menu">
+  <a href="Shop.html" class="menu_0">
+    S h o p &nbsp
+  </a>
+
+  <a href="Portfolio.html" class="menu_1">
+    P o r t f o l i o
+  </a>
+
+  <a href="AboutMe.html" class="menu_2">
+    A b o u t &nbsp m e
+  </a>
+  
+  <a href="Contact.html" class="menu_3">
+    C o n t a c t
+  </a>
+
+  <a href="https://www.instagram.com/lisa_tostaky/" class="menu_4">
+    <img src="img/Logo-instagram-orange.png" alt="Instagram">
+  </a>
+  </header>
+
+
+
+
+  <header class="trait">
+  </header>
+
+
+
+
+  <header class="title">
+    <a class="title_1">
+      T o n &nbsp P a n i e r
+    </a>
+  </header>
+
+
+
+
+
+<div class="contenu">
+
   <table id="panier-table">
     <thead>
       <tr>
         <th>Produit</th>
+        <th>Format</th>
         <th>Prix</th>
         <th>Quantité</th>
         <th>Total</th>
-        <th>Actions</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <!-- Le contenu du panier sera injecté ici -->
+      <!-- Contenu du panier -->
     </tbody>
   </table>
 
   <p id="panier-total" style="font-weight:bold; margin-top: 20px;"></p>
-  <button id="checkout-button">Payer maintenant</button>
+  Note : les frais de livraison sont inclus dans le prix affiché.
+  <button class="button" id="checkout-button">Payer</button>
 
-  <script src="js/cart.js"></script>
-  <script>
-    const tbody = document.querySelector("#panier-table tbody");
-    let panier = JSON.parse(localStorage.getItem("panier")) || [];
+</div>
 
-    function afficherPanier() {
-      tbody.innerHTML = "";
-      let total = 0;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tbody = document.querySelector("#panier-table tbody");
 
-      panier.forEach((item, index) => {
-        const itemTotal = item.prix * item.quantite;
-        total += itemTotal;
+  // Récupère le panier depuis localStorage
+  let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${item.nom}</td>
-          <td>${item.prix.toFixed(2)} €</td>
-          <td>${item.quantite}</td>
-          <td>${itemTotal.toFixed(2)} €</td>
-          <td><button class="remove-btn" data-index="${index}">Supprimer</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
+  function afficherPanier() {
+    tbody.innerHTML = "";
 
-      document.getElementById("panier-total").textContent = `Total : ${total.toFixed(2)} €`;
-
-      // Ajouter la fonction supprimer
-      document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          panier.splice(btn.dataset.index, 1);
-          localStorage.setItem("panier", JSON.stringify(panier));
-          afficherPanier();
-        });
-      });
+    if (panier.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Le panier est vide.</td></tr>`;
+      document.getElementById("panier-total").textContent = "";
+      return;
     }
 
-    afficherPanier();
+    let total = 0;
 
-    // Stripe Checkout
-    document.getElementById("checkout-button").addEventListener("click", async () => {
-      if(panier.length === 0) return alert("Le panier est vide !");
-      const res = await fetch("https://ton-projet.vercel.app/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: panier.map(item => ({ id: item.id, quantity: item.quantite })) })
-      });
-      const data = await res.json();
-      window.location.href = data.url;
+    panier.forEach((item, index) => {
+      const prix = Number(item.prix); // assure que c’est bien un nombre
+      const quantite = Number(item.quantite);
+      const itemTotal = prix * quantite;
+      total += itemTotal;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.nom}</td>
+        <td>${item.format}</td>
+        <td>${prix.toFixed(2)} €</td>
+        <td>${quantite}</td>
+        <td>${itemTotal.toFixed(2)} €</td>
+        <td><button class="remove-btn" data-index="${index}">✕</button></td>
+      `;
+      tbody.appendChild(tr);
     });
-  </script>
+
+    document.getElementById("panier-total").textContent = `Total : ${total.toFixed(2)} €`;
+
+    // Supprimer un article
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        panier.splice(btn.dataset.index, 1);
+        localStorage.setItem("panier", JSON.stringify(panier));
+        afficherPanier();
+      });
+    });
+  }
+
+  afficherPanier();
+
+  // Stripe Checkout
+  document.getElementById("checkout-button").addEventListener("click", async () => {
+    if (panier.length === 0) return alert("Le panier est vide !");
+
+    const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: panier.map(item => ({ id: item.id, quantity: item.quantite })) })
+    });
+
+    const data = await res.json();
+    window.location.href = data.url;
+  });
+
+  // Mise à jour automatique si localStorage change dans un autre onglet
+  window.addEventListener("storage", () => {
+    panier = JSON.parse(localStorage.getItem("panier")) || [];
+    afficherPanier();
+  });
+});
+</script>
+
+<footer class="footer">
+  © 2025 - Lisa Tostaky
+</footer>
 
 </body>
 </html>
