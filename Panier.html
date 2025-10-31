@@ -1,76 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <head>
-    <title>Lisa Tostaky</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style_Panier.css">
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Panier - Lisa Tostaky</title>
+  <link rel="stylesheet" href="css/style_Panier.css">
 </head>
 <body>
 
+<header class="name">
+  <a href="index.html" class="name_1">L i s a &nbsp T o s t a k y</a>
+  <a href="index.html" class="name_2"><img src="img/circleimg2.png"></a>
+</header>
 
-  <header class="name">
-  <a href="index.html" class="name_1">
-    L i s a &nbsp T o s t a k y
-  </a>
-  
-  <a href="index.html" class="name_2">
-    <img src="img/circleimg2.png">
-  </a>
-  </header>
-
-
-
-
-  <header class="menu">
-  <a href="Shop.html" class="menu_0">
-    S h o p &nbsp
-  </a>
-
-  <a href="Portfolio.html" class="menu_1">
-    P o r t f o l i o
-  </a>
-
-  <a href="AboutMe.html" class="menu_2">
-    A b o u t &nbsp m e
-  </a>
-  
-  <a href="Contact.html" class="menu_3">
-    C o n t a c t
-  </a>
-
+<header class="menu">
+  <a href="Shop.html" class="menu_0">S h o p &nbsp</a>
+  <a href="Portfolio.html" class="menu_1">P o r t f o l i o</a>
+  <a href="AboutMe.html" class="menu_2">A b o u t &nbsp m e</a>
+  <a href="Contact.html" class="menu_3">C o n t a c t</a>
   <a href="https://www.instagram.com/lisa_tostaky/" class="menu_4">
     <img src="img/Logo-instagram-orange.png" alt="Instagram">
   </a>
+  <a href="Panier.html" class="menu_5"><img src="img/panier-logo.png" alt="panier"></a>
+</header>
 
-  <a href="Panier.html" class="menu_5">
-    <img src="img/panier-logo.png" alt="panier">
-  </a>
-  </header>
+<header class="trait"></header>
 
-
-
-
-  <header class="trait">
-  </header>
-
-
-
-
-  <header class="title">
-    <a class="title_1">
-      T o n &nbsp P a n i e r
-    </a>
-  </header>
-
-
-
-
+<header class="title">
+  <a class="title_1">T o n &nbsp P a n i e r</a>
+</header>
 
 <div class="contenu">
-
   <table id="panier-table">
     <thead>
       <tr>
@@ -90,19 +50,15 @@
   <p id="panier-total" style="font-weight:bold; margin-top: 20px;"></p>
   Note : les frais de livraison sont inclus dans le prix affiché.
   <button class="button" id="checkout-button">Payer</button>
-
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tbody = document.querySelector("#panier-table tbody");
-
-  // Récupère le panier depuis localStorage
   let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
   function afficherPanier() {
     tbody.innerHTML = "";
-
     if (panier.length === 0) {
       tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Le panier est vide.</td></tr>`;
       document.getElementById("panier-total").textContent = "";
@@ -110,9 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let total = 0;
-
     panier.forEach((item, index) => {
-      const prix = Number(item.prix); // assure que c’est bien un nombre
+      const prix = Number(item.prix);
       const quantite = Number(item.quantite);
       const itemTotal = prix * quantite;
       total += itemTotal;
@@ -131,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("panier-total").textContent = `Total : ${total.toFixed(2)} €`;
 
-    // Supprimer un article
     document.querySelectorAll(".remove-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         panier.splice(btn.dataset.index, 1);
@@ -143,21 +97,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
   afficherPanier();
 
-  // Stripe Checkout
   document.getElementById("checkout-button").addEventListener("click", async () => {
     if (panier.length === 0) return alert("Le panier est vide !");
 
-    const res = await fetch("https://stripe-1ohqpxdiv-tostaky71s-projects.vercel.app/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: panier.map(item => ({ id: item.id, quantity: item.quantite })) })
-    });
+    try {
+      const res = await fetch("https://stripe-1ohqpxdiv-tostaky71s-projects.vercel.app/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: panier.map(item => ({
+            id: item.id, // doit être id + "_" + format
+            quantity: item.quantite
+          }))
+        })
+      });
 
-    const data = await res.json();
-    window.location.href = data.url;
+      if (!res.ok) {
+        const errData = await res.json();
+        console.error("Erreur API :", errData);
+        alert("Erreur lors de la création de la session Stripe. Vérifiez la console.");
+        return;
+      }
+
+      const data = await res.json();
+      if (!data.url) {
+        console.error("Aucune URL retournée :", data);
+        alert("Erreur Stripe : URL manquante");
+        return;
+      }
+
+      window.location.href = data.url;
+
+    } catch (err) {
+      console.error("Erreur fetch :", err);
+      alert("Impossible de contacter le serveur Stripe. Vérifiez la console.");
+    }
   });
 
-  // Mise à jour automatique si localStorage change dans un autre onglet
   window.addEventListener("storage", () => {
     panier = JSON.parse(localStorage.getItem("panier")) || [];
     afficherPanier();
@@ -165,9 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<footer class="footer">
-  © 2025 - Lisa Tostaky
-</footer>
+<footer class="footer">© 2025 - Lisa Tostaky</footer>
 
 </body>
 </html>
