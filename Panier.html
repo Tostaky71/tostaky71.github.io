@@ -52,12 +52,32 @@
   <button class="button" id="checkout-button">Payer</button>
 </div>
 
+<!-- Exemple de boutons Ajouter au panier (à mettre sur ta page Shop.html) -->
+<!-- 
+<button class="add-to-cart" data-id="Renne1" data-nom="Renne1" data-format="small" data-prix="15">Ajouter au panier</button>
+-->
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tbody = document.querySelector("#panier-table tbody");
   const checkoutBtn = document.getElementById("checkout-button");
   let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
+  // Ajout au panier
+  function ajouterAuPanier(article) {
+    const index = panier.findIndex(
+      item => item.id === article.id && item.format === article.format
+    );
+    if (index !== -1) {
+      panier[index].quantite = Number(panier[index].quantite) + Number(article.quantite);
+    } else {
+      panier.push(article);
+    }
+    localStorage.setItem("panier", JSON.stringify(panier));
+    afficherPanier();
+  }
+
+  // Affichage du panier
   function afficherPanier() {
     tbody.innerHTML = "";
     if (panier.length === 0) {
@@ -96,10 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Affiche le panier dès que la page charge
+  // Affichage initial
   afficherPanier();
 
-  // Bouton Payer
+  // Boutons Ajouter au panier (sur Shop.html)
+  document.querySelectorAll(".add-to-cart").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const article = {
+        id: btn.dataset.id,
+        nom: btn.dataset.nom,
+        format: btn.dataset.format,
+        prix: btn.dataset.prix,
+        quantite: 1
+      };
+      ajouterAuPanier(article);
+      alert(`${article.nom} ajouté au panier !`);
+    });
+  });
+
+  // Paiement Stripe
   checkoutBtn.addEventListener("click", async () => {
     if (panier.length === 0) return alert("Le panier est vide !");
 
@@ -149,7 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
 
 <footer class="footer">© 2025 - Lisa Tostaky</footer>
 
