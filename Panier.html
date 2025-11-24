@@ -55,10 +55,8 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tbody = document.querySelector("#panier-table tbody");
-  const checkoutBtn = document.getElementById("checkout-button");
   let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
-  // Affiche le panier
   function afficherPanier() {
     tbody.innerHTML = "";
     if (panier.length === 0) {
@@ -96,61 +94,57 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+});
 
   afficherPanier();
 
-  // Paiement
-  checkoutBtn.addEventListener("click", async () => {
-    if (panier.length === 0) return alert("Le panier est vide !");
+document.getElementById("checkout-button").addEventListener("click", async () => {
+  if (panier.length === 0) return alert("Le panier est vide !");
 
-    const payload = {
-      items: panier.map(item => ({
-        id: `${item.id}_${item.format}`,
-        quantity: Number(item.quantite)
-      }))
-    };
+  // Log du payload pour vérifier ce qui est envoyé
+  const payload = {
+    items: panier.map(item => ({
+      id: `${item.id}_${item.format}`,
+      quantity: Number(item.quantite)
+    }))
+  };
 
-    console.log("📦 Payload envoyé :", payload);
+  console.log("Payload envoyé :", payload);
 
-    try {
-      const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        mode: "cors"
-      });
+  try {
+    const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      mode: "cors"
+    });
 
-      if (!res.ok) {
-        const text = await res.text(); // Lire HTML d’erreur si problème
-        console.error("❌ Réponse erreur serveur :", text);
-        alert("Erreur lors de la création de la session Stripe (voir console).");
-        return;
-      }
-
-      const data = await res.json();
-
-      if (!data.url) {
-        console.error("❌ Aucune URL retournée :", data);
-        alert("Erreur Stripe : URL manquante");
-        return;
-      }
-
-      window.location.href = data.url;
-
-    } catch (err) {
-      console.error("⚠️ Erreur fetch :", err);
-      alert("Impossible de contacter le serveur Stripe. Vérifiez la console.");
+    if (!res.ok) {
+      const text = await res.text(); // Lire le HTML si erreur
+      console.error("Réponse erreur du serveur :", text);
+      alert("Erreur lors de la création de la session Stripe (voir console).");
+      return;
     }
-  });
 
-  // Mise à jour si localStorage change
-  window.addEventListener("storage", () => {
-    panier = JSON.parse(localStorage.getItem("panier")) || [];
-    afficherPanier();
-  });
+    const data = await res.json();
+    
+    if (!data.url) {
+      console.error("Aucune URL retournée :", data);
+      alert("Erreur Stripe : URL manquante");
+      return;
+    }
+
+    window.location.href = data.url;
+
+  } catch (err) {
+    console.error("Erreur fetch :", err);
+    alert("Impossible de contacter le serveur Stripe. Vérifiez la console.");
+  }
 });
-</script>
 
+</script>
 
 <footer class="footer">© 2025 - Lisa Tostaky</footer>
 
