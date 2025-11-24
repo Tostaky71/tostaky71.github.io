@@ -52,32 +52,11 @@
   <button class="button" id="checkout-button">Payer</button>
 </div>
 
-<!-- Exemple de boutons Ajouter au panier (à mettre sur ta page Shop.html) -->
-<!-- 
-<button class="add-to-cart" data-id="Renne1" data-nom="Renne1" data-format="small" data-prix="15">Ajouter au panier</button>
--->
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tbody = document.querySelector("#panier-table tbody");
-  const checkoutBtn = document.getElementById("checkout-button");
   let panier = JSON.parse(localStorage.getItem("panier")) || [];
 
-  // Ajout au panier
-  function ajouterAuPanier(article) {
-    const index = panier.findIndex(
-      item => item.id === article.id && item.format === article.format
-    );
-    if (index !== -1) {
-      panier[index].quantite = Number(panier[index].quantite) + Number(article.quantite);
-    } else {
-      panier.push(article);
-    }
-    localStorage.setItem("panier", JSON.stringify(panier));
-    afficherPanier();
-  }
-
-  // Affichage du panier
   function afficherPanier() {
     tbody.innerHTML = "";
     if (panier.length === 0) {
@@ -115,74 +94,56 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+});
 
-  // Affichage initial
   afficherPanier();
 
-  // Boutons Ajouter au panier (sur Shop.html)
-  document.querySelectorAll(".add-to-cart").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const article = {
-        id: btn.dataset.id,
-        nom: btn.dataset.nom,
-        format: btn.dataset.format,
-        prix: btn.dataset.prix,
-        quantite: 1
-      };
-      ajouterAuPanier(article);
-      alert(`${article.nom} ajouté au panier !`);
+document.getElementById("checkout-button").addEventListener("click", async () => {
+  if (panier.length === 0) return alert("Le panier est vide !");
+
+  // Log du payload pour vérifier ce qui est envoyé
+  const payload = {
+    items: panier.map(item => ({
+      id: `${item.id}_${item.format}`,
+      quantity: Number(item.quantite)
+    }))
+  };
+
+  console.log("Payload envoyé :", payload);
+
+  try {
+    const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      mode: "cors"
     });
-  });
 
-  // Paiement Stripe
-  checkoutBtn.addEventListener("click", async () => {
-    if (panier.length === 0) return alert("Le panier est vide !");
-
-    const payload = {
-      items: panier.map(item => ({
-        id: `${item.id}_${item.format}`,
-        quantity: Number(item.quantite)
-      }))
-    };
-
-    console.log("📦 Payload envoyé :", payload);
-
-    try {
-      const res = await fetch("https://stripe-api-tawny.vercel.app/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        mode: "cors"
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("❌ Réponse erreur serveur :", text);
-        alert("Erreur lors de la création de la session Stripe (voir console).");
-        return;
-      }
-
-      const data = await res.json();
-      if (!data.url) {
-        console.error("❌ Aucune URL retournée :", data);
-        alert("Erreur Stripe : URL manquante");
-        return;
-      }
-
-      window.location.href = data.url;
-
-    } catch (err) {
-      console.error("⚠️ Erreur fetch :", err);
-      alert("Impossible de contacter le serveur Stripe. Vérifiez la console.");
+    if (!res.ok) {
+      const text = await res.text(); // Lire le HTML si erreur
+      console.error("Réponse erreur du serveur :", text);
+      alert("Erreur lors de la création de la session Stripe (voir console).");
+      return;
     }
-  });
 
-  // Mise à jour si localStorage change (multi-onglet)
-  window.addEventListener("storage", () => {
-    panier = JSON.parse(localStorage.getItem("panier")) || [];
-    afficherPanier();
-  });
+    const data = await res.json();
+    
+    if (!data.url) {
+      console.error("Aucune URL retournée :", data);
+      alert("Erreur Stripe : URL manquante");
+      return;
+    }
+
+    window.location.href = data.url;
+
+  } catch (err) {
+    console.error("Erreur fetch :", err);
+    alert("Impossible de contacter le serveur Stripe. Vérifiez la console.");
+  }
 });
+
 </script>
 
 <footer class="footer">© 2025 - Lisa Tostaky</footer>
