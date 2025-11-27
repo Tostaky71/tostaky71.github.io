@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Karla", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+	background-color: white;
+}
+
+.header {
+    position: absolute;
+	display: flex;
+    top: 0%;
+    width: 100%;
+    height: 118px;
+    background-color: white;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 100;
+    border-bottom: 1px solid rgb(210,210,210);
+}
+
+.milieu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    margin-top: -2px;
+    gap: 18px;
+    width: 50%;
+    height: 100px;
+    background-color: transparent;
+}
+
+.titre {
+    text-decoration: none;
+    color: rgb(45,176,205);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Open sans", sans-serif;
+    margin-top: 4px;
+}
+
+.menu {
+    display: flex;
+    gap: 24px;
+}
+.menu .home {
+    color: rgb(45,176,205);
+    font-weight: 700;
+    text-decoration: underline;
+}
+.menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+.menu a:hover {
+    text-decoration: underline;
+}
+
+
+.bandeau {
+    position: absolute;
+    display: flex;
+    margin-top: -2px;
+    width: 1216px;
+    height: 74px;
+    background-color: transparent;
+}
+.logo {
+    display: block;
+    height: 100%;
+    width: auto;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
