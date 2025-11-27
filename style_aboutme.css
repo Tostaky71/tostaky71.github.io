@@ -63,7 +63,7 @@ body {
     display: flex;
     gap: 24px;
 }
-.menu .home {
+.menu .aboutme {
     color: rgb(60, 160, 240);
     font-weight: 700;
     text-decoration: underline;
