@@ -112,3 +112,82 @@ body {
     object-fit: cover;
     display: block;
 }
+
+
+
+.contenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 150px;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+img {
+    height: 300px;
+    width: 300px;
+}
+
+.space {
+    position: relative;
+    display: flex;
+    height: 20px;
+    width:auto;
+}
+
+.photo1 {
+    position: relative;
+    display: flex;
+    height: 300px;
+    width: 300px;
+}
+
+.texte1 {
+    text-align: center;
+}
+
+.photo2 {
+    position: relative;
+    display: flex;
+    height: 300px;
+    width: 300px;
+}
+
+.soustitre2 {
+    width: 60%;
+    justify-content: left;
+    font-size: larger;
+    font-weight: 700;
+    color: orange;
+}
+
+.texte2 {
+    width: 70%;
+}
+
+.soustitre3 {
+    width: 60%;
+    justify-content: left;
+    font-size: larger;
+    font-weight: 700;
+    color: orange;
+}
+
+.texte3 {
+    width: 70%;
+}
+
+.soustitre4 {
+    width: 60%;
+    justify-content: left;
+    font-size: larger;
+    font-weight: 700;
+    color: orange;
+}
+
+.texte4 {
+    width: 70%;
+}
