@@ -127,7 +127,7 @@ body {
     position: fixed;
     width: 70%;
     height: 100%;
-    background-color: rgb(251, 242, 229);
+    background-color: transparent;
     z-index: -10;
 }
 
@@ -179,7 +179,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: rgb(60, 160, 240);
+    color: orange;
 }
 
 .texte2 {
@@ -191,7 +191,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: rgb(60, 160, 240);
+    color: orange;
 }
 
 .texte3 {
@@ -203,7 +203,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: rgb(60, 160, 240);
+    color: orange;
 }
 
 .texte4 {
