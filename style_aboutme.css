@@ -115,6 +115,23 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+.bande_fond {
+    position: fixed;
+    width: 70%;
+    height: 100%;
+    background-color: rgb(251, 242, 229);
+    z-index: -10;
+}
+
+
 .contenu {
     position: absolute;
     display: flex;
@@ -162,7 +179,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: orange;
+    color: rgb(60, 160, 240);
 }
 
 .texte2 {
@@ -174,7 +191,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: orange;
+    color: rgb(60, 160, 240);
 }
 
 .texte3 {
@@ -186,7 +203,7 @@ img {
     justify-content: left;
     font-size: larger;
     font-weight: 700;
-    color: orange;
+    color: rgb(60, 160, 240);
 }
 
 .texte4 {
