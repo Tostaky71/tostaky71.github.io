@@ -95,20 +95,31 @@ body {
 
 .themenu .menu_5 {
 	position: absolute;
+	top: 45%;
+    font-size: 17px;
+    color: rgb(60, 160, 240);
+    text-decoration: none;
+}
+.themenu .menu_5:hover {
+	color: rgb(255, 165, 75);
+}
+
+.themenu .menu_6 {
+	position: absolute;
 	display: flex;
-	top: 49%;
+	top: 64%;
 	width: 30px;
 	height: 30px;
     background-color: transparent;
 	justify-content: space-evenly;
     align-items: center;
 }
-.themenu .menu_5 img {
+.themenu .menu_6 img {
 	position: absolute;
 	height: 30px;
     filter: grayscale(100%) brightness(0.9);
 }
-.themenu .menu_5 img:hover {
+.themenu .menu_6 img:hover {
     filter: grayscale(0%);
 }
 
