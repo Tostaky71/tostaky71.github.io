@@ -34,7 +34,7 @@ body {
 .menu_1 {
 	position: absolute;
 	top: 10%;
-    font-size: 22px;
+    font-size: 23px;
     color: black;
     text-decoration: none;
     font-weight: 400;
@@ -64,50 +64,39 @@ body {
 	position: absolute;
 	top: 0%;
     font-size: 17px;
-    color: rgb(60, 160, 240);
+    color: rgb(70, 70, 70);
     text-decoration: none;
 }
 .themenu .menu_2:hover {
-	color: rgb(255, 165, 75);
-}
-
-.themenu .menu_3 {
-	position: absolute;
-	top: 15%;
-    font-size: 17px;
-    color: rgb(60, 160, 240);
-    text-decoration: none;
-}
-.themenu .menu_3:hover {
-	color: rgb(255, 165, 75);
+	color: rgb(60, 160, 240);
 }
 
 .themenu .menu_4 {
 	position: absolute;
-	top: 30%;
+	top: 17%;
     font-size: 17px;
-    color: rgb(60, 160, 240);
+    color: rgb(70, 70, 70);
     text-decoration: none;
 }
 .themenu .menu_4:hover {
-	color: rgb(255, 165, 75);
+	color: rgb(60, 160, 240);
 }
 
 .themenu .menu_5 {
 	position: absolute;
-	top: 45%;
+	top: 34%;
     font-size: 17px;
-    color: rgb(60, 160, 240);
+    color: rgb(70, 70, 70);
     text-decoration: none;
 }
 .themenu .menu_5:hover {
-	color: rgb(255, 165, 75);
+	color: rgb(60, 160, 240);
 }
 
 .themenu .menu_6 {
 	position: absolute;
 	display: flex;
-	top: 64%;
+	top: 53%;
 	width: 30px;
 	height: 30px;
     background-color: transparent;
@@ -117,7 +106,7 @@ body {
 .themenu .menu_6 img {
 	position: absolute;
 	height: 30px;
-    filter: grayscale(100%) brightness(0.9);
+    filter: grayscale(100%) brightness(0.7);
 }
 .themenu .menu_6 img:hover {
     filter: grayscale(0%);
